@@ -1,0 +1,139 @@
+// シート名に /,／ は使えないけど ⁄,∕,⧸,🙼 は使える
+# [#uN38XOfh] テスト
+
+[imagePath]: .
+
+//+. 対象
+//-. 観点
+//*. 手順
+//+. 期待結果
+
++. カテゴリ
+-. 概要
+*. 詳細
+
+:foo: ほげ
+
+//- ※※ !!!作成中!!! ※※
+//  * [#cO6Dw58L] ※※ まだチェックしないでください ※※
+
+:bar: ほげげ
+
+//- [#aToasBS1] ふがが${foo}はがが [^ へげげ${foo}ほぐぐ]
+
+- &foo_template
+  - [#HTJ8UBRb] item1
+  - [#MEwRCPCW] item2${foo_p1}
+
+- [#Wh2XzLAX] *foo_template(foo_p1: "hoge")
+
+
+@if false
+- &array_sample
+  - some text
+  - &array_exists
+    - array exists
+      * &each
+        * some text
+          * {{data_in_elem}}
+      * *each(array_data_in_elem)
+  - *array_exists(array_data)
+  - &array_not_exists
+    - array not exists
+  - *array_not_exists
+
+
+//- *foo_template( )
+//- *foo_template(   p0 )
+- *foo_template(var_obj, var_obj2)
+- *foo_template(foo_p1: "param")
+
+- foo
+  - data1:
+```
+      p1: text1
+      p2: text2
+```
+  - data2:
+    - p1: text1
+      p2: text2
+    - p1: text1_2
+      p2: text2_2
+  - bar
+
+// TODO: objct として渡すか、個別に渡すかの指定をそれぞれ考えないとダメ
+- &bar()
+  // 普通に呼び出し可能
+  // 参照外しなしでそのまま渡す？
+  //- *foo($params)
+  // 呼び出しを外から指定も可能
+  //- [#hCKr4tK2] *${template}($params)
+  - [#KGZC8xQq] item2
+  // ローカルで宣言して呼び出し可能
+  - &localtemplate()
+    * [#KrHEVc3x] local ${p1}
+  //- *localtemplate(p1: "hoge")
+
+//- *foo(var_obj)
+//- *bar(var_obj2)
+
+[format="yaml"]
+|===
+var_obj:
+  foo_p1: hoge1
+  foo_p2: hoge2
+var_obj2:
+  template: foo
+  foo_p1: fuga1
+  foo_p2: fuga2
+  foo_p3: fuga3
+|===
+
+:baz: ほげ
+
+# [#KLWDfOE3] sheet2
+
+[imagePath]: .
+
+- ※※ !!!作成中!!! ※※
+  * [#j0ZB7W3U] ※※ まだチェックしないでください ※※
+
+:qux: ほげ
+
+
+[format="yaml"]
+|===
+
+multiline_text: |-
+  line 1
+  line 2
+  line 3
+
+var_obj:
+  foo: hoge
+  bar: hoge
+  baz: hoge
+
+var_objarray:
+- foo: hoge
+  bar: hoge
+  baz: hoge
+- foo: hoge
+  bar: hoge
+  baz: hoge
+
+# excel からの変換はこれで
+# 1行目がheader
+var_header_array:
+- [ foo, bar ]
+- [hoge, hage]
+- [hoge, hage]
+
+var_header_array2:
+  $header: [ foo, bar ]
+  $data:
+   - [hoge, hage]
+   - [hoge, hage]
+
+|===
+@end
